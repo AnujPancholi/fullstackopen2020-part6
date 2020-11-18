@@ -1,14 +1,22 @@
+import _ from "lodash"
+
 const initialState = {
   good: 0,
   ok: 0,
   bad: 0
 }
 
+
+
+
 const counterReducer = (state = initialState, action) => {
-  console.log(action)
+  // console.log(action)
+  
   switch (action.type) {
     case 'GOOD':
-      return state
+      return _.defaultsDeep({
+        "good": state.good+1
+      }, state)
     case 'OK':
       return state
     case 'BAD':
