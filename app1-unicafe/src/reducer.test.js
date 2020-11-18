@@ -71,5 +71,26 @@ describe('unicafe reducer', () => {
 
   })
 
+  test('action of type ZERO should revert all counts to 0',() => {
+    const state = {
+      good: 7,
+      ok: 8,
+      bad: 4
+    }
+
+    const action = {
+      type: 'ZERO'
+    }
+
+    const updatedState = counterReducer(state,action)
+
+    expect(updatedState).toEqual({
+      good: 0,
+      ok: 0,
+      bad: 0
+    })
+
+  })
+
 
 })
