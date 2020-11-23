@@ -1,15 +1,22 @@
-import React from "react";
+import React,{useState} from "react";
 
 
 const Anecdote = ({anecdote, recordVote}) => {
+
+    const [voteCount,setVoteCount] = useState(anecdote.votes);
+
+    const performUpvote = () => {
+        recordVote(anecdote.id);
+        setVoteCount(voteCount+1);
+    }
 
     return (<div key={anecdote.id}>
           <div>
             {anecdote.content}
           </div>
           <div>
-            has {anecdote.votes}
-            <button onClick={() => recordVote(anecdote.id)}>vote</button>
+            has {voteCount}
+            <button onClick={performUpvote}>vote</button>
           </div>
         </div>)
 }
