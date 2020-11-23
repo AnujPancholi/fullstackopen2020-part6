@@ -20,7 +20,7 @@ const App = () => {
     <div>
       <h2>Anecdotes</h2>
       {anecdotes.map(anecdote =>
-        <Anecdote anecdote={anecdote} recordVote={vote} />
+        <Anecdote key={anecdote.id} anecdote={anecdote} recordVote={vote} />
       )}
       <h2>create new</h2>
       <form>
