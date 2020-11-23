@@ -1,3 +1,5 @@
+import _ from "lodash";
+
 const anecdotesAtStart = [
   'If it hurts, do it more often',
   'Adding manpower to a late software project makes it later!',
@@ -19,11 +21,23 @@ const asObject = (anecdote) => {
 
 const initialState = anecdotesAtStart.map(asObject)
 
+
+
+
 const reducer = (state = initialState, action) => {
   console.log('state now: ', state)
   console.log('action', action)
 
-  return state
+  switch(action.type){
+    case "VOTE_UP":
+      return _.map(state,function(obj){
+        return _.assign(obj, {
+          votes: obj.votes + (obj.id===action.id ? 1 : 0)
+        })
+      })
+    default: 
+    return state;
+  }
 }
 
 export default reducer
