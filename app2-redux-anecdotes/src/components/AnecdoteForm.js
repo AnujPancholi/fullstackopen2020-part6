@@ -3,7 +3,7 @@ import {useDispatch} from "react-redux";
 import {getNewAnecdoteAction} from "../reducers/anecdoteReducer.js";
 
 
-
+//anecdote form component
 const AnecdoteForm = ({formId}) => {
 
     const dispatch = useDispatch();
