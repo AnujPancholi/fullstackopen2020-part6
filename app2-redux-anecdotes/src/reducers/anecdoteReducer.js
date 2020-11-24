@@ -32,14 +32,15 @@ const reducer = (state = initialState, action) => {
     case "VOTE_UP":
       
       const updatedState = _.map(state,function(obj){
-        console.log("IDS",obj.id,action.id);
         return _.defaultsDeep({
           votes: obj.votes + (obj.id===action.id ? 1 : 0)
         }, obj)
       })
       console.log("UPDATED STATE:",updatedState)
       return updatedState;
-      
+    
+      case "ANECDOTE_NEW":
+        return state.concat(action.data);
     default:
       return state;
   }
@@ -52,9 +53,21 @@ const getUpvoteAction = (id) => {
   }
 }
 
+const getNewAnecdoteAction = (text) => {
+  return {
+    type: "ANECDOTE_NEW",
+    data: {
+      id: getId(),
+      content: text,
+      votes: 0
+    }
+  }
+}
+
 
 export default reducer
 
 export {
-  getUpvoteAction
+  getUpvoteAction,
+  getNewAnecdoteAction
 }
