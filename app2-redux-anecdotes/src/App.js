@@ -1,13 +1,13 @@
 import React from 'react'
-import AnecdoteContainer from './components/AnecdoteContainer'
-import AnecdoteForm from './components/AnecdoteForm'
+import AnecdoteList from './components/AnecdoteList.js'
+import AnecdoteForm from './components/AnecdoteForm.js'
 
 const App = () => {
   
 
   return (
     <div>
-      <AnecdoteContainer />
+      <AnecdoteList />
       <AnecdoteForm formId="anecdote-form" />
     </div>
   )

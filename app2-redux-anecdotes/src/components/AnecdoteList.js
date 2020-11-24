@@ -5,7 +5,7 @@ import {getUpvoteAction} from "../reducers/anecdoteReducer.js"
 import _ from "lodash"
 
 
-const AnecdoteContainer = () => {
+const AnecdoteList = () => {
 
     const anecdotes = useSelector(state => {
         const copiedState = _.map(state,(obj) => {
@@ -29,4 +29,4 @@ const AnecdoteContainer = () => {
     </>)
 }
 
-export default AnecdoteContainer;
+export default AnecdoteList;
