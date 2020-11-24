@@ -40,4 +40,16 @@ const reducer = (state = initialState, action) => {
   }
 }
 
+const getUpvoteAction = (id) => {
+  return {
+    type: "VOTE_UP",
+    id: id
+  }
+}
+
+
 export default reducer
+
+export {
+  getUpvoteAction
+}

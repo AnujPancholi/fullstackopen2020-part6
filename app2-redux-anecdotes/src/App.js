@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import Anecdote from './components/Anecdote'
+import {getUpvoteAction} from "./reducers/anecdoteReducer.js"
 
 const App = () => {
   const anecdotes = useSelector(state => state)
@@ -9,10 +10,7 @@ const App = () => {
   const vote = (id) => {
     console.log('vote', id)
 
-    dispatch({
-      type: "VOTE_UP",
-      id: id
-    })
+    dispatch(getUpvoteAction(id))
 
   }
 
