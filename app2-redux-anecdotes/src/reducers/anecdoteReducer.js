@@ -30,13 +30,18 @@ const reducer = (state = initialState, action) => {
 
   switch(action.type){
     case "VOTE_UP":
-      return _.map(state,function(obj){
-        return _.assign(obj, {
+      
+      const updatedState = _.map(state,function(obj){
+        console.log("IDS",obj.id,action.id);
+        return _.defaultsDeep({
           votes: obj.votes + (obj.id===action.id ? 1 : 0)
-        })
+        }, obj)
       })
-    default: 
-    return state;
+      console.log("UPDATED STATE:",updatedState)
+      return updatedState;
+      
+    default:
+      return state;
   }
 }
 
