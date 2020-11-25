@@ -49,6 +49,8 @@ Already did this, nothing to add.
 
 Already did this, although the name of my component was `AnecdoteContainer`, so I simply changed the name.
 
+## Exercise 6.9
 
+Installed redux dev tools. Moved the redux store to store.js and imported the same in the index.js file.
 
 ---
