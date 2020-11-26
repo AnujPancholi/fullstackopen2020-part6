@@ -1,4 +1,5 @@
 import _ from "lodash";
+import { combineReducers } from "redux";
 
 const anecdotesAtStart = [
   'If it hurts, do it more often',
@@ -19,12 +20,15 @@ const asObject = (anecdote) => {
   }
 }
 
-const initialState = anecdotesAtStart.map(asObject)
+const initialState = {
+  anecdotes: anecdotesAtStart.map(asObject),
+  notification_message: ""
+}
 
 
 
 
-const reducer = (state = initialState, action) => {
+const anecdoteReducer = (state = initialState.anecdotes, action) => {
   console.log('state now: ', state)
   console.log('action', action)
 
@@ -46,6 +50,19 @@ const reducer = (state = initialState, action) => {
   }
 }
 
+const notificationMessageReducer = (notificationMessage = initialState.notification_message,action) => {
+
+  switch(action.type){
+    case "SHOW":
+      return action.message;
+    case "HIDE":
+      return "";
+    default:
+      return "";
+  }
+
+} 
+
 //action creators
 const getUpvoteAction = (id) => {
   return {
@@ -65,10 +82,16 @@ const getNewAnecdoteAction = (text) => {
   }
 }
 
+const reducer = combineReducers({
+  anecdotes: anecdoteReducer,
+  notification_message: notificationMessageReducer
+  
+})
 
 export default reducer
 
 export {
+  anecdoteReducer,
   getUpvoteAction,
   getNewAnecdoteAction
 }

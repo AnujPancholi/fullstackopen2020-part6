@@ -8,7 +8,7 @@ import _ from "lodash"
 const AnecdoteList = () => {
 
     const anecdotes = useSelector(state => {
-        const copiedState = _.map(state,(obj) => {
+        const copiedState = _.map(state.anecdotes,(obj) => {
             return _.defaultsDeep({},obj);
         })
         copiedState.sort((a,b) => b.votes - a.votes);
