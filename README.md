@@ -53,4 +53,12 @@ Already did this, although the name of my component was `AnecdoteContainer`, so 
 
 Installed redux dev tools. Moved the redux store to store.js and imported the same in the index.js file.
 
+## Exercise 6.10
+
+Made the necessary changes, with different action creators for showing and hiding the notification as recommended
+
+## Exercise 6.11
+
+Made functions to display the notifications for 5 secs on new anecdote creation and on upvoting an anecdote.
+
 ---
