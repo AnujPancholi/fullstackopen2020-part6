@@ -53,9 +53,9 @@ const anecdoteReducer = (state = initialState.anecdotes, action) => {
 const notificationMessageReducer = (notificationMessage = initialState.notification_message,action) => {
 
   switch(action.type){
-    case "SHOW":
+    case "NOTIFICATION_SHOW":
       return action.message;
-    case "HIDE":
+    case "NOTIFICATION_HIDE":
       return "";
     default:
       return "";
@@ -82,6 +82,19 @@ const getNewAnecdoteAction = (text) => {
   }
 }
 
+const getNoticationShowAction = (text) => {
+  return {
+    type: "NOTIFICATION_SHOW",
+    message: text
+  }
+}
+
+const getNoticationHideAction = () => {
+  return {
+    type: "NOTIFICATION_HIDE"
+  }
+}
+
 const reducer = combineReducers({
   anecdotes: anecdoteReducer,
   notification_message: notificationMessageReducer
@@ -93,5 +106,8 @@ export default reducer
 export {
   anecdoteReducer,
   getUpvoteAction,
-  getNewAnecdoteAction
+  getNewAnecdoteAction,
+  getNoticationShowAction,
+  getNoticationHideAction
+
 }

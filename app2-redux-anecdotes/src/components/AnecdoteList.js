@@ -2,6 +2,7 @@ import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Anecdote from './Anecdote'
 import {getUpvoteAction} from "../reducers/anecdoteReducer.js"
+import Notification from "./Notification.js"
 import _ from "lodash"
 
 
@@ -23,6 +24,7 @@ const AnecdoteList = () => {
 
     return (<>
         <h2>Anecdotes</h2>
+            <Notification />
             {anecdotes.map(anecdote =>
             <Anecdote key={anecdote.id} anecdote={anecdote} recordVote={vote} />
         )}
