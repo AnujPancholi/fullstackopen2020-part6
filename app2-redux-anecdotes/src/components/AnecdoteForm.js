@@ -31,7 +31,7 @@ const AnecdoteForm = ({formId}) => {
         const anecdoteText = event.target["anecdote-text-input"].value;
 
         dispatch(getNewAnecdoteAction(anecdoteText))
-        showNewAnecdoteAsNotification(anecdoteText)
+        showNewAnecdoteAsNotification(`New anecdote: "${anecdoteText}"`)
 
     }
 

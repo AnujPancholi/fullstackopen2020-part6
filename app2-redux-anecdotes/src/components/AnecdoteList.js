@@ -1,7 +1,11 @@
 import React from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Anecdote from './Anecdote'
-import {getUpvoteAction} from "../reducers/anecdoteReducer.js"
+import {
+    getUpvoteAction,
+    getNoticationShowAction,
+    getNoticationHideAction
+} from "../reducers/anecdoteReducer.js"
 import Notification from "./Notification.js"
 import _ from "lodash"
 
@@ -17,9 +21,17 @@ const AnecdoteList = () => {
     })
     const dispatch = useDispatch()
 
-    const vote = (id) => {
+    const showTextNotification = (anecdoteText) => {
+        dispatch(getNoticationShowAction(anecdoteText))
+        setTimeout(() => {
+          dispatch(getNoticationHideAction(anecdoteText))
+        },5000)
+      }
+
+    const vote = (id,anecdoteText) => {
         console.log('vote', id)
         dispatch(getUpvoteAction(id))
+        showTextNotification(`Upvoted: ${anecdoteText}`)
     }
 
     return (<>

@@ -4,7 +4,7 @@ import React from "react";
 const Anecdote = ({anecdote, recordVote}) => {
 
     const performUpvote = () => {
-        recordVote(anecdote.id);
+        recordVote(anecdote.id,anecdote.content);
     }
 
     return (<div key={anecdote.id}>
