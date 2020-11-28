@@ -21,7 +21,8 @@ const asObject = (anecdote) => {
 }
 
 const initialState = {
-  anecdotes: anecdotesAtStart.map(asObject),
+  anecdotes: [],
+  anecdotes_is_loading: false,
   notification_message: ""
 }
 
@@ -43,9 +44,25 @@ const anecdoteReducer = (state = initialState.anecdotes, action) => {
       console.log("UPDATED STATE:",updatedState)
       return updatedState;
     
-      case "ANECDOTE_NEW":
-        return state.concat(action.data);
+    case "ANECDOTE_NEW":
+      return state.concat(action.data);
+
+    case "ANECDOTE_POPULATE_ALL":
+      return action.data || []
+
     default:
+      return state;
+  }
+}
+
+const anecdoteLoadingReducer = (state = initialState.anecdotes_is_loading, action) => {
+
+  switch(action.type){
+    case "ANECDOTE_LOADING_SET":
+      return true;
+    case "ANECDOTE_LOADING_UNSET":
+      return false;
+    default: 
       return state;
   }
 }
@@ -82,6 +99,25 @@ const getNewAnecdoteAction = (text) => {
   }
 }
 
+const getPopulateAllAnecdotesAction = (anecdotesArr) => {
+  return {
+    type: "ANECDOTE_POPULATE_ALL",
+    data: anecdotesArr
+  }
+}
+
+const getAnecdoteLoadingSetAction = () => {
+  return {
+    type: "ANECDOTE_LOADING_SET"
+  }
+}
+
+const getAnecdoteLoadingUnsetAction = () => {
+  return {
+    type: "ANECDOTE_LOADING_UNSET"
+  }
+}
+
 const getNoticationShowAction = (text) => {
   return {
     type: "NOTIFICATION_SHOW",
@@ -97,6 +133,7 @@ const getNoticationHideAction = () => {
 
 const reducer = combineReducers({
   anecdotes: anecdoteReducer,
+  anecdotes_is_loading: anecdoteLoadingReducer,
   notification_message: notificationMessageReducer
   
 })
@@ -108,6 +145,9 @@ export {
   getUpvoteAction,
   getNewAnecdoteAction,
   getNoticationShowAction,
-  getNoticationHideAction
+  getNoticationHideAction,
+  getPopulateAllAnecdotesAction,
+  getAnecdoteLoadingSetAction,
+  getAnecdoteLoadingUnsetAction
 
 }

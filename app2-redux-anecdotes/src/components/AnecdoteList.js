@@ -1,12 +1,16 @@
-import React from "react";
+import React,{ useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Anecdote from './Anecdote'
 import {
     getUpvoteAction,
     getNoticationShowAction,
-    getNoticationHideAction
+    getNoticationHideAction,
+    getPopulateAllAnecdotesAction,
+    getAnecdoteLoadingSetAction,
+    getAnecdoteLoadingUnsetAction
 } from "../reducers/anecdoteReducer.js"
 import Notification from "./Notification.js"
+import anecdotesService from "../services/anecdotes.js";
 import _ from "lodash"
 
 
@@ -19,6 +23,28 @@ const AnecdoteList = () => {
         copiedState.sort((a,b) => b.votes - a.votes);
         return copiedState;
     })
+
+    const isLoading = useSelector(state => {
+        return state.anecdotes_is_loading
+    })
+
+    const populateAnecdotes = () => {
+        (async() => {
+            dispatch(getAnecdoteLoadingSetAction());
+            try{
+                const fetchedAnecdotes = await anecdotesService.getAll();
+                dispatch(getPopulateAllAnecdotesAction(fetchedAnecdotes))
+            }catch(e){
+                dispatch(getPopulateAllAnecdotesAction([]))
+            }
+            dispatch(getAnecdoteLoadingUnsetAction());
+        })()
+    }
+
+    useEffect(() => {
+        populateAnecdotes()
+    },[])
+
     const dispatch = useDispatch()
 
     const showTextNotification = (anecdoteText) => {
@@ -37,7 +63,7 @@ const AnecdoteList = () => {
     return (<>
         <h2>Anecdotes</h2>
             <Notification />
-            {anecdotes.map(anecdote =>
+            {isLoading ? <div>Loading...</div> : anecdotes.map(anecdote =>
             <Anecdote key={anecdote.id} anecdote={anecdote} recordVote={vote} />
         )}
     </>)
