@@ -61,4 +61,10 @@ Made the necessary changes, with different action creators for showing and hidin
 
 Made functions to display the notifications for 5 secs on new anecdote creation and on upvoting an anecdote.
 
+## Exercise 6.13
+
+Setting up the json-server dependency to use a json file was easy, then, I made a file `services/anecdotes.js` for the sole purpose of communication with the backend for anecdote-related operations. Used that file in the `AnecdoteList` component to fetch the data and invented an action of type `ANECDOTE_POPULATE_ALL` in the anecdote reducer to set the state with the fetched data (created an action creator for the same).
+
+Also, I found it necessary to add another property to the state, `anecdotes_is_loading` which is a boolean that would indicate if the anecdote data is being loaded from the backend or not. If this is set, then the `AnecdoteList` component would simply show "Loading..." instead of nothing (which would indicate absence of anecdotes). So, each time the data is fetched, first `anecdotes_is_loading` is set to `true`, and one the API responds, it is unset to `false`.
+
 ---
