@@ -67,4 +67,8 @@ Setting up the json-server dependency to use a json file was easy, then, I made 
 
 Also, I found it necessary to add another property to the state, `anecdotes_is_loading` which is a boolean that would indicate if the anecdote data is being loaded from the backend or not. If this is set, then the `AnecdoteList` component would simply show "Loading..." instead of nothing (which would indicate absence of anecdotes). So, each time the data is fetched, first `anecdotes_is_loading` is set to `true`, and one the API responds, it is unset to `false`.
 
+## Exercise 6.14
+
+First step was to add a function in the `anecdotes` service to make the POST request to create an anecdote on the backend. Votes were initialized with 0 on the frontend, however, `json-server` does me the courtesy of creating a randomly generated ID which it returns in the newly created document (or what would be a document in MongoDb). Then the state could simply be updated with the new anecdote with the existing action and slightly modified action creator. 
+
 ---
