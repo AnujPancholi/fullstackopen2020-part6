@@ -73,14 +73,10 @@ const getUpvoteAction = (id) => {
   }
 }
 
-const getNewAnecdoteAction = (text) => {
+const getNewAnecdoteAdditionAction = (data) => {
   return {
     type: "ANECDOTE_NEW",
-    data: {
-      id: getId(),
-      content: text,
-      votes: 0
-    }
+    data: data
   }
 }
 
@@ -128,7 +124,7 @@ export default reducer
 export {
   anecdoteReducer,
   getUpvoteAction,
-  getNewAnecdoteAction,
+  getNewAnecdoteAdditionAction,
   getNoticationShowAction,
   getNoticationHideAction,
   getPopulateAllAnecdotesAction,
