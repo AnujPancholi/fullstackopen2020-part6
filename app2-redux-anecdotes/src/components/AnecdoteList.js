@@ -5,9 +5,7 @@ import {
     getUpvoteAction,
     getNoticationShowAction,
     getNoticationHideAction,
-    getPopulateAllAnecdotesAction,
-    getAnecdoteLoadingSetAction,
-    getAnecdoteLoadingUnsetAction
+    getPopulateAllAnecdotesActionAsync
 } from "../reducers/anecdoteReducer.js"
 import Notification from "./Notification.js"
 import anecdotesService from "../services/anecdotes.js";
@@ -29,16 +27,7 @@ const AnecdoteList = () => {
     })
 
     const populateAnecdotes = () => {
-        (async() => {
-            dispatch(getAnecdoteLoadingSetAction());
-            try{
-                const fetchedAnecdotes = await anecdotesService.getAll();
-                dispatch(getPopulateAllAnecdotesAction(fetchedAnecdotes))
-            }catch(e){
-                dispatch(getPopulateAllAnecdotesAction([]))
-            }
-            dispatch(getAnecdoteLoadingUnsetAction());
-        })()
+        dispatch(getPopulateAllAnecdotesActionAsync())
     }
 
     useEffect(() => {

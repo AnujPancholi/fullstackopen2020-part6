@@ -1,9 +1,9 @@
 import _ from "lodash";
 import { combineReducers } from "redux";
+import anecdotesService from "../services/anecdotes.js";
 
 
 
-const getId = () => (100000 * Math.random()).toFixed(0)
 
 const initialState = {
   anecdotes: [],
@@ -87,6 +87,19 @@ const getPopulateAllAnecdotesAction = (anecdotesArr) => {
   }
 }
 
+const getPopulateAllAnecdotesActionAsync = () => {
+  return (async(dispatch) => {
+    dispatch(getAnecdoteLoadingSetAction());
+    try{
+        const fetchedAnecdotes = await anecdotesService.getAll();
+        dispatch(getPopulateAllAnecdotesAction(fetchedAnecdotes))
+    }catch(e){
+        dispatch(getPopulateAllAnecdotesAction([]))
+    }
+    dispatch(getAnecdoteLoadingUnsetAction());
+  })
+}
+
 const getAnecdoteLoadingSetAction = () => {
   return {
     type: "ANECDOTE_LOADING_SET"
@@ -129,6 +142,7 @@ export {
   getNoticationHideAction,
   getPopulateAllAnecdotesAction,
   getAnecdoteLoadingSetAction,
-  getAnecdoteLoadingUnsetAction
+  getAnecdoteLoadingUnsetAction,
+  getPopulateAllAnecdotesActionAsync
 
 }
