@@ -2,7 +2,7 @@ import React,{ useEffect } from "react";
 import { useSelector, useDispatch } from 'react-redux';
 import Anecdote from './Anecdote'
 import {
-    getUpvoteAction,
+    getUpvoteActionAsync,
     getNoticationShowAction,
     getNoticationHideAction,
     getPopulateAllAnecdotesActionAsync
@@ -42,10 +42,11 @@ const AnecdoteList = () => {
         },5000)
       }
 
-    const vote = (id,anecdoteText) => {
-        console.log('vote', id)
-        dispatch(getUpvoteAction(id))
-        showTextNotification(`Upvoted: ${anecdoteText}`)
+    const vote = (data,anecdoteText) => {
+        console.log('vote', data.id)
+
+        dispatch(getUpvoteActionAsync(data,showTextNotification))
+        
     }
 
     return (<>

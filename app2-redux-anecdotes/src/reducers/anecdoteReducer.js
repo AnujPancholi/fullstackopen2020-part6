@@ -74,6 +74,18 @@ const getUpvoteAction = (id) => {
   }
 }
 
+const getUpvoteActionAsync = (data,showTextNotification) => {
+  return (async(dispatch) => {
+    try{
+      const upvoteResult = await anecdotesService.voteUp(data);
+      dispatch(getUpvoteAction(upvoteResult.id));
+      showTextNotification(`Upvoted: ${upvoteResult.content}`)
+    }catch(e){
+      console.error(`anecdoteReducer|ERROR`,e);
+    }
+  })
+}
+
 const getNewAnecdoteAdditionAction = (data) => {
   return {
     type: "ANECDOTE_NEW",
@@ -156,6 +168,7 @@ export default reducer
 export {
   anecdoteReducer,
   getUpvoteAction,
+  getUpvoteActionAsync,
   getNewAnecdoteAdditionAction,
   getNoticationShowAction,
   getNoticationHideAction,

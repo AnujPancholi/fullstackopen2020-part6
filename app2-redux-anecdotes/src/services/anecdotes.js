@@ -84,7 +84,7 @@ const voteUp = (data) => {
                 }
             })
             
-            return resolve(anecdoteUpvoteResult);
+            return resolve(anecdoteUpvoteResult.data);
             
         }catch(e){
             console.log(`service|anecdotes|upvote|ERROR`,e);
