@@ -1,4 +1,5 @@
 import axios from "axios";
+import { reject } from "lodash";
 
 
 const anecdotesAxios = axios.create({
@@ -71,8 +72,44 @@ const create = (data) => {
     })
 }
 
+const voteUp = (data) => {
+    return new Promise(async(resolve,reject) => {
+        try{
+            const anecdoteUpvoteResult = await anecdotesAxios({
+                method: "PUT",
+                url: `/${data.id}`,
+                data: {
+                    ...data,
+                    votes: data.votes+1
+                }
+            })
+            
+            return resolve(anecdoteUpvoteResult);
+            
+        }catch(e){
+            console.log(`service|anecdotes|upvote|ERROR`,e);
+            if(e.response){
+                return reject({
+                    message: "SERVER RESPONDED WITH ERROR",
+                    data: e.response.data
+                })
+            } else if (e.request){
+                return reject({
+                    message: "NO RESPONSE FROM SERVER"
+                })
+            } else {
+                return reject({
+                    message: "AN ERROR OCCURRED IN COMMUNICATING WITH THE SERVER",
+                    detailedMessage: e.message || "UNKNOWN"
+                })
+            }
+        }
+    })
+}
+
 
 export default {
     getAll,
-    create
+    create,
+    voteUp
 }
