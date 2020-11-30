@@ -63,7 +63,8 @@ const notificationMessageReducer = (notificationMessage = initialState.notificat
       return "";
   }
 
-} 
+}
+
 
 //action creators
 const getUpvoteAction = (id) => {
@@ -78,6 +79,24 @@ const getNewAnecdoteAdditionAction = (data) => {
     type: "ANECDOTE_NEW",
     data: data
   }
+}
+
+const getNewAnecdoteAdditionActionAsync = (anecdoteText,showTextNotification) => {
+  return (async(dispatch) => {
+    try{
+      const anecdoteCreationResult = await anecdotesService.create({
+        content: anecdoteText
+      })
+
+      console.log(anecdoteCreationResult)
+
+      dispatch(getNewAnecdoteAdditionAction(anecdoteCreationResult))
+      showTextNotification(`New anecdote: "${anecdoteText}"`)
+
+    }catch(e){
+      console.error(`AnecdoteForm|ERROR`,e)
+    }
+  })
 }
 
 const getPopulateAllAnecdotesAction = (anecdotesArr) => {
@@ -143,6 +162,7 @@ export {
   getPopulateAllAnecdotesAction,
   getAnecdoteLoadingSetAction,
   getAnecdoteLoadingUnsetAction,
-  getPopulateAllAnecdotesActionAsync
+  getPopulateAllAnecdotesActionAsync,
+  getNewAnecdoteAdditionActionAsync
 
 }

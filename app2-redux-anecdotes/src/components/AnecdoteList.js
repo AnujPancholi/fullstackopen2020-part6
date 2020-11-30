@@ -8,7 +8,6 @@ import {
     getPopulateAllAnecdotesActionAsync
 } from "../reducers/anecdoteReducer.js"
 import Notification from "./Notification.js"
-import anecdotesService from "../services/anecdotes.js";
 import _ from "lodash"
 
 

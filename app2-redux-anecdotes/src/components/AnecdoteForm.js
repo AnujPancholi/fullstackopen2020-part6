@@ -3,9 +3,9 @@ import {useDispatch} from "react-redux";
 import {
   getNoticationShowAction,
   getNoticationHideAction,
-  getNewAnecdoteAdditionAction,
+  getNewAnecdoteAdditionActionAsync,
 } from "../reducers/anecdoteReducer.js";
-import anecdotesService from "../services/anecdotes.js";
+
 
 
 //anecdote form component
@@ -24,24 +24,13 @@ const AnecdoteForm = ({formId}) => {
       },5000)
     }
 
-    const handleSubmit = async(event) => {
+    const handleSubmit = (event) => {
         event.preventDefault();
 
-        console.log(event);
-
         const anecdoteText = event.target["anecdote-text-input"].value;
+        // console.log(anecdoteText);
 
-        try{
-          const anecdoteCreationResult = await anecdotesService.create({
-            content: anecdoteText
-          })
-
-          dispatch(getNewAnecdoteAdditionAction(anecdoteCreationResult))
-          showTextNotification(`New anecdote: "${anecdoteText}"`)
-
-        }catch(e){
-
-        }
+        dispatch(getNewAnecdoteAdditionActionAsync(anecdoteText,showTextNotification))
 
     }
 
