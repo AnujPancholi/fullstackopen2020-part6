@@ -1,5 +1,5 @@
 import React,{ useEffect } from "react";
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector, useDispatch, connect } from 'react-redux';
 import Anecdote from './Anecdote'
 import {
     getUpvoteActionAsync,
@@ -9,15 +9,17 @@ import Notification from "./Notification.js"
 import _ from "lodash"
 
 
-const AnecdoteList = () => {
+const AnecdoteList = (props) => {
 
-    const anecdotes = useSelector(state => {
-        const copiedState = _.map(state.anecdotes,(obj) => {
+    const getSortedCopy = (inputList) => {
+        const copiedState = _.map(inputList,(obj) => {
             return _.defaultsDeep({},obj);
         })
         copiedState.sort((a,b) => b.votes - a.votes);
         return copiedState;
-    })
+    }
+
+    const anecdotes = getSortedCopy(props.state_anecdotes)
 
     const isLoading = useSelector(state => {
         return state.anecdotes_is_loading
@@ -49,4 +51,15 @@ const AnecdoteList = () => {
     </>)
 }
 
-export default AnecdoteList;
+const mapStateToProps = (state) => {
+    return {
+        state_anecdotes: state.anecdotes,
+        state_anecdotes_is_loading: state.anecdotes_is_loading
+    }
+}
+
+const ConnectedAnecdoteList = connect(
+    mapStateToProps
+)(AnecdoteList)
+
+export default ConnectedAnecdoteList;
