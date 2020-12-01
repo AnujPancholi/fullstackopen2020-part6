@@ -69,6 +69,20 @@ Also, I found it necessary to add another property to the state, `anecdotes_is_l
 
 ## Exercise 6.14
 
-First step was to add a function in the `anecdotes` service to make the POST request to create an anecdote on the backend. Votes were initialized with 0 on the frontend, however, `json-server` does me the courtesy of creating a randomly generated ID which it returns in the newly created document (or what would be a document in MongoDb). Then the state could simply be updated with the new anecdote with the existing action and slightly modified action creator. 
+First step was to add a function in the `anecdotes` service to make the POST request to create an anecdote on the backend. Votes were initialized with 0 on the frontend, however, `json-server` does me the courtesy of creating a randomly generated ID which it returns in the newly created document (or what would be a document in MongoDb). Then the state could simply be updated with the new anecdote with the existing action and slightly modified action creator.
+
+## Exercise 6.15
+
+Made an async action creator that, in the async funtion that it returns, calls `dispatch` with the existing action creator. Works fine, and the logic if fetching the data from the `anecdotes` service is shifted to the reducer file.
+
+## Exercise 6.16
+
+Did the same thing for the creation of new note, however, since we have to show the notification as well (for which I made a function), I have passed that function as a param as well which is in turn called when the creation operation is successful.
+
+## Exercise 6.17
+
+Made a function to record upvote via a PUT request on in `anecdotes` service, made an action creator in the reducer file to use the function to record upvote. Passed the function to show the nofication as a parameter just like the last exercise.
+
+**NOTE:** In `json-server`, I tried to find a way to increment the value of votes by 1, alas, I discovered I have to pass literally all the data in the updated document except the `id`, therefore, there will be a race condition here, wherein if two people on different browsers upvote at the same time, only 1 upvote will be recorded. 
 
 ---
