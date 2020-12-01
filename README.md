@@ -85,4 +85,8 @@ Made a function to record upvote via a PUT request on in `anecdotes` service, ma
 
 **NOTE:** In `json-server`, I tried to find a way to increment the value of votes by 1, alas, I discovered I have to pass literally all the data in the updated document except the `id`, therefore, there will be a race condition here, wherein if two people on different browsers upvote at the same time, only 1 upvote will be recorded. 
 
+## Exercise 6.18
+
+Made an acton creator function for this purpose and used the same for showing the two notifications. This eliminated the need for the function to show notification passed as a parameter to the async action creators for voting and new anecdote creation functionalities. Note that this action creator is being called form within the `anecdoteReducer` file by the other action creators.
+
 ---
