@@ -1,8 +1,6 @@
 import React from "react";
 import {useDispatch} from "react-redux";
 import {
-  getNoticationShowAction,
-  getNoticationHideAction,
   getNewAnecdoteAdditionActionAsync,
 } from "../reducers/anecdoteReducer.js";
 
@@ -17,20 +15,16 @@ const AnecdoteForm = ({formId}) => {
         formId="new-anecdote-form";
     }
 
-    const showTextNotification = (anecdoteText) => {
-      dispatch(getNoticationShowAction(anecdoteText))
-      setTimeout(() => {
-        dispatch(getNoticationHideAction(anecdoteText))
-      },5000)
-    }
+    
 
     const handleSubmit = (event) => {
         event.preventDefault();
 
         const anecdoteText = event.target["anecdote-text-input"].value;
+        event.target["anecdote-text-input"].value="";
         // console.log(anecdoteText);
 
-        dispatch(getNewAnecdoteAdditionActionAsync(anecdoteText,showTextNotification))
+        dispatch(getNewAnecdoteAdditionActionAsync(anecdoteText))
 
     }
 

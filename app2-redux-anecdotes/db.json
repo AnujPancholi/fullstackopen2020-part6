@@ -3,12 +3,12 @@
     {
       "content": "If it hurts, do it more often",
       "id": "47145",
-      "votes": 0
+      "votes": 3
     },
     {
+      "votes": 1,
       "content": "Adding manpower to a late software project makes it later!",
-      "id": "21149",
-      "votes": 0
+      "id": "21149"
     },
     {
       "votes": 4,
@@ -34,6 +34,16 @@
       "votes": 5,
       "content": "bleh",
       "id": "b5IKeMl"
+    },
+    {
+      "content": "Don't give in to comfort",
+      "votes": 0,
+      "id": "HMelf0T"
+    },
+    {
+      "content": "Wubba Lubba Dub Dub",
+      "votes": 1,
+      "id": "GE63Frb"
     }
   ]
 }

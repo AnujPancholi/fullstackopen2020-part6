@@ -3,8 +3,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import Anecdote from './Anecdote'
 import {
     getUpvoteActionAsync,
-    getNoticationShowAction,
-    getNoticationHideAction,
     getPopulateAllAnecdotesActionAsync
 } from "../reducers/anecdoteReducer.js"
 import Notification from "./Notification.js"
@@ -35,17 +33,10 @@ const AnecdoteList = () => {
 
     const dispatch = useDispatch()
 
-    const showTextNotification = (anecdoteText) => {
-        dispatch(getNoticationShowAction(anecdoteText))
-        setTimeout(() => {
-          dispatch(getNoticationHideAction(anecdoteText))
-        },5000)
-      }
-
     const vote = (data,anecdoteText) => {
         console.log('vote', data.id)
 
-        dispatch(getUpvoteActionAsync(data,showTextNotification))
+        dispatch(getUpvoteActionAsync(data))
         
     }
 

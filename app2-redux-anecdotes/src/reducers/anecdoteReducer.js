@@ -67,6 +67,18 @@ const notificationMessageReducer = (notificationMessage = initialState.notificat
 
 
 //action creators
+
+const getShowNotificationActionAsync = (text,timeoutValue=1000) => {
+  return ((dispatch) => {
+
+    dispatch(getNoticationShowAction(text));
+    setTimeout(() => {
+      dispatch(getNoticationHideAction());
+    },timeoutValue);
+  })
+}
+
+
 const getUpvoteAction = (id) => {
   return {
     type: "VOTE_UP",
@@ -74,12 +86,12 @@ const getUpvoteAction = (id) => {
   }
 }
 
-const getUpvoteActionAsync = (data,showTextNotification) => {
+const getUpvoteActionAsync = (data) => {
   return (async(dispatch) => {
     try{
       const upvoteResult = await anecdotesService.voteUp(data);
       dispatch(getUpvoteAction(upvoteResult.id));
-      showTextNotification(`Upvoted: ${upvoteResult.content}`)
+      dispatch(getShowNotificationActionAsync(`Upvoted: ${upvoteResult.content}`,5000))
     }catch(e){
       console.error(`anecdoteReducer|ERROR`,e);
     }
@@ -93,7 +105,7 @@ const getNewAnecdoteAdditionAction = (data) => {
   }
 }
 
-const getNewAnecdoteAdditionActionAsync = (anecdoteText,showTextNotification) => {
+const getNewAnecdoteAdditionActionAsync = (anecdoteText) => {
   return (async(dispatch) => {
     try{
       const anecdoteCreationResult = await anecdotesService.create({
@@ -103,7 +115,7 @@ const getNewAnecdoteAdditionActionAsync = (anecdoteText,showTextNotification) =>
       console.log(anecdoteCreationResult)
 
       dispatch(getNewAnecdoteAdditionAction(anecdoteCreationResult))
-      showTextNotification(`New anecdote: "${anecdoteText}"`)
+      dispatch(getShowNotificationActionAsync(`New anecdote: "${anecdoteText}"`,5000))
 
     }catch(e){
       console.error(`AnecdoteForm|ERROR`,e)
