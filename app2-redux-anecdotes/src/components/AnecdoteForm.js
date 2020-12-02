@@ -1,5 +1,5 @@
 import React from "react";
-import {useDispatch} from "react-redux";
+import {connect} from "react-redux";
 import {
   getNewAnecdoteAdditionActionAsync,
 } from "../reducers/anecdoteReducer.js";
@@ -7,9 +7,9 @@ import {
 
 
 //anecdote form component
-const AnecdoteForm = ({formId}) => {
+const AnecdoteForm = ({formId,getNewAnecdoteAdditionActionAsync}) => {
 
-    const dispatch = useDispatch();
+    
 
     if(!formId){
         formId="new-anecdote-form";
@@ -24,7 +24,7 @@ const AnecdoteForm = ({formId}) => {
         event.target["anecdote-text-input"].value="";
         // console.log(anecdoteText);
 
-        dispatch(getNewAnecdoteAdditionActionAsync(anecdoteText))
+        getNewAnecdoteAdditionActionAsync(anecdoteText)
 
     }
 
@@ -38,4 +38,14 @@ const AnecdoteForm = ({formId}) => {
 }
 
 
-export default AnecdoteForm;
+const mapDispatchToProps = {
+  getNewAnecdoteAdditionActionAsync
+}
+
+
+const ConnectedAnecdoteForm = connect(
+  ((state) => {}),
+  mapDispatchToProps
+)(AnecdoteForm);
+
+export default ConnectedAnecdoteForm;
