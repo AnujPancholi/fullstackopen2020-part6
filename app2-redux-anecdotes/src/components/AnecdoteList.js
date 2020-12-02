@@ -26,7 +26,8 @@ const AnecdoteList = (props) => {
     })
 
     const populateAnecdotes = () => {
-        dispatch(getPopulateAllAnecdotesActionAsync())
+        
+        props.getPopulateAllAnecdotesActionAsync();
     }
 
     useEffect(() => {
@@ -58,8 +59,13 @@ const mapStateToProps = (state) => {
     }
 }
 
+const mapDispatchToProps = {
+    getPopulateAllAnecdotesActionAsync
+}
+
 const ConnectedAnecdoteList = connect(
-    mapStateToProps
+    mapStateToProps,
+    mapDispatchToProps
 )(AnecdoteList)
 
 export default ConnectedAnecdoteList;
