@@ -97,5 +97,14 @@ Fairly easy to do, and does away with the user of hooks of `react-redux` and use
 
 Same as above exercise, however, there wasn't really anything from the redux store here, so had to pass a `mapStateToProps` function that returns an empty object.
 
+## Exercise 6.21
 
+This one was a bit tricky. I would need the id returned by `setTimeout` somewhere if it was to be cleared for the new timeout, so I made another property for it in the state. Made a reducer for that, in which the action of type `NOTIFICATION_CLEARTIMEOUT` would clear whatever timeout id was stored in the state property `notification_id` (and even if that is not a valid timeout id, it would not throw an error) and an action of type `NOTIFICATION_SETTIMEOUT` would set the timeout id in the state that its action creator receives as an argument. Then, within the async action creator `getShowNotificationActionAsync` that actually creates the actions to show the notifications, I dispatch the action creators to first clear the timeout, and then set it again to hide the new notification, which solves the problem.
+
+Two things to note here:
+
+ - Inside the function returned by `getShowNotificationActionAsync`, the order of initiating the various action via `dispatch` was initially *clear timeout*->*set notification*->*set timeout*. However, the set timeout action was resetting the notification message back to its initial value immediately and the message was never shown, which was odd, considering I had made a different reducer altogether to manage the `notification_message` property and the reducer called by this action was different. After more than an hour os struggling, I changed the order to *clear interval*->*set timeout*->*set notification message* and the issue was solved. I'm not entirely sure what that was.
+ - According to the redux docs, a reducer function should always be a pure function, but seeing as I would have to use the function `clearTimeout` on the state proprety to clear the timeout, I thought I would have to violate that. Instead, I passed the global `clearTimeout` as a parameter in the `action` object, and called that, however, I was getting an "Illegal Invocation" error. I found a solution for that where I am binding the function to the `window` object's context (which from what I know if basically global in a browser environment) and used that. I'm not sure if that's cheating but it works fine.
+ 
+   
 ---
