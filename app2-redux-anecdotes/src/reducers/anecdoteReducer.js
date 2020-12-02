@@ -8,8 +8,11 @@ import anecdotesService from "../services/anecdotes.js";
 const initialState = {
   anecdotes: [],
   anecdotes_is_loading: false,
-  notification_message: ""
+  notification_message: "",
+  notification_id: ""
 }
+
+// let NOTIFICATION_TIMEOUT_ID = null;
 
 
 
@@ -65,16 +68,50 @@ const notificationMessageReducer = (notificationMessage = initialState.notificat
 
 }
 
+const notificationIdReducer = (notificationId = initialState.notification_id,action) => {
+
+  switch(action.type){
+    case "NOTIFICATION_SETTIMEOUT":
+      return action.timeoutId;
+    case "NOTIFICATION_CLEARTIMEOUT":
+      action.clearTimeout(notificationId);
+      return ""; 
+    default:
+      return notificationId;
+  }
+}
+
 
 //action creators
 
+const getNotificationSetTimeoutAction = (timeoutId) => {
+  return {
+    type: "NOTIFICATION_SETTIMEOUT",
+    timeoutId: timeoutId
+  }
+}
+
+const getNotificationClearTimeoutAction = () => {
+  return {
+    type: "NOTIFICATION_CLEARTIMEOUT",
+    clearTimeout: window.clearTimeout.bind(window)
+  }
+}
+
+
 const getShowNotificationActionAsync = (text,timeoutValue=1000) => {
   return ((dispatch) => {
-
+    // clearTimeout(NOTIFICATION_TIMEOUT_ID)
+    dispatch(getNotificationClearTimeoutAction());
+    dispatch(
+      getNotificationSetTimeoutAction(
+      setTimeout(() => {
+        dispatch(getNoticationHideAction());
+      },timeoutValue)
+      )
+      );
     dispatch(getNoticationShowAction(text));
-    setTimeout(() => {
-      dispatch(getNoticationHideAction());
-    },timeoutValue);
+    
   })
 }
 
@@ -156,10 +193,12 @@ const getAnecdoteLoadingUnsetAction = () => {
 }
 
 const getNoticationShowAction = (text) => {
-  return {
+  return ((dispatch) => {
+    dispatch({
     type: "NOTIFICATION_SHOW",
     message: text
-  }
+  })
+  })
 }
 
 const getNoticationHideAction = () => {
@@ -171,7 +210,8 @@ const getNoticationHideAction = () => {
 const reducer = combineReducers({
   anecdotes: anecdoteReducer,
   anecdotes_is_loading: anecdoteLoadingReducer,
-  notification_message: notificationMessageReducer
+  notification_message: notificationMessageReducer,
+  notification_id: notificationIdReducer
   
 })
 

@@ -44,7 +44,7 @@ const mapDispatchToProps = {
 
 
 const ConnectedAnecdoteForm = connect(
-  ((state) => {}),
+  ((state) => ({})),
   mapDispatchToProps
 )(AnecdoteForm);
 
