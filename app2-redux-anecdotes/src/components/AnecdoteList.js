@@ -1,5 +1,5 @@
 import React,{ useEffect } from "react";
-import { useSelector, useDispatch, connect } from 'react-redux';
+import { connect } from 'react-redux';
 import Anecdote from './Anecdote'
 import {
     getUpvoteActionAsync,
@@ -21,9 +21,7 @@ const AnecdoteList = (props) => {
 
     const anecdotes = getSortedCopy(props.state_anecdotes)
 
-    const isLoading = useSelector(state => {
-        return state.anecdotes_is_loading
-    })
+    const isLoading = props.state_anecdotes_is_loading
 
     const populateAnecdotes = () => {
         
@@ -34,12 +32,10 @@ const AnecdoteList = (props) => {
         populateAnecdotes()
     },[])
 
-    const dispatch = useDispatch()
-
-    const vote = (data,anecdoteText) => {
+    const vote = (data) => {
         console.log('vote', data.id)
 
-        dispatch(getUpvoteActionAsync(data))
+        props.getUpvoteActionAsync(data)
         
     }
 
@@ -55,12 +51,13 @@ const AnecdoteList = (props) => {
 const mapStateToProps = (state) => {
     return {
         state_anecdotes: state.anecdotes,
-        state_anecdotes_is_loading: state.anecdotes_is_loading
+        state_anecdotes_is_loading: state.anecdotes_is_loading,
     }
 }
 
 const mapDispatchToProps = {
-    getPopulateAllAnecdotesActionAsync
+    getPopulateAllAnecdotesActionAsync,
+    getUpvoteActionAsync
 }
 
 const ConnectedAnecdoteList = connect(
