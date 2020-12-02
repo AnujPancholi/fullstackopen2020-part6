@@ -89,4 +89,8 @@ Made a function to record upvote via a PUT request on in `anecdotes` service, ma
 
 Made an acton creator function for this purpose and used the same for showing the two notifications. This eliminated the need for the function to show notification passed as a parameter to the async action creators for voting and new anecdote creation functionalities. Note that this action creator is being called form within the `anecdoteReducer` file by the other action creators.
 
+## Exercise 6.19
+
+Fairly easy to do, and does away with the user of hooks of `react-redux` and uses `connect` entirely.
+
 ---
