@@ -93,4 +93,9 @@ Made an acton creator function for this purpose and used the same for showing th
 
 Fairly easy to do, and does away with the user of hooks of `react-redux` and uses `connect` entirely.
 
+## Exercise 6.20
+
+Same as above exercise, however, there wasn't really anything from the redux store here, so had to pass a `mapStateToProps` function that returns an empty object.
+
+
 ---
